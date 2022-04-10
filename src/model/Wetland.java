@@ -9,10 +9,6 @@ public class Wetland
 {
     // Attributes
     /**
-	 * The wetland ID
-	 */
-    private String wetlandId;
-    /**
 	 * The wetland Name
 	 */
     private String wetlandName;
@@ -36,6 +32,10 @@ public class Wetland
 	 * If the wetland is protected or no
 	 */
     private boolean wetlandProtected;
+    /**
+     * The wetland name of the zone
+     */
+    private String wetlandNameOfTheZone;
 
     // Associations
     /**
@@ -53,21 +53,7 @@ public class Wetland
 
     // Constructors
     /**
-     * This constructor contains default values.
-     */
-    public Wetland()
-    {
-        this.wetlandId = "Unspecified";
-        this.wetlandName = "Unspecified";
-        this.wetlandZone = "Unspecified";
-        this.wetlandType = "Unspecified";
-        this.wetlandKm2 = 0.00;
-        this.wetlandPhotoUrl = "Unspecified";
-        this.wetlandProtected = false;
-    }
-    /**
      * This constructor assigns the values entered by the user.
-     * @param wetlandId this parameter defines the id of the wetland
      * @param wetlandName this parameter defines the name of the wetland
      * @param wetlandZone this parameter defines the zone of the wetland
      * @param wetlandType this parameter defines the type of the wetland
@@ -75,35 +61,37 @@ public class Wetland
      * @param wetlandPhotoUrl this parameter defines the photo url of the wetland
      * @param wetlandProtected this parameter defines if the wetland is protected or no
      */
+    // name, locationZone, type, size, urlPicture, protection, nameOfTheZone
     public Wetland(
-        String wetlandId, String wetlandName, String wetlandZone, 
-        String wetlandType, double wetlandKm2, String wetlandPhotoUrl,
-        boolean wetlandProtected
+        String wetlandName, String wetlandZone, String wetlandType,
+        double wetlandKm2, String wetlandPhotoUrl, boolean wetlandProtected,
+        String wetlandNameOfTheZone, int numberOfSpecies
     )
     {
-        this.wetlandId = wetlandId;
         this.wetlandName = wetlandName;
         this.wetlandZone = wetlandZone;
         this.wetlandType = wetlandType;
         this.wetlandKm2 = wetlandKm2;;
         this.wetlandPhotoUrl = wetlandPhotoUrl;
         this.wetlandProtected = wetlandProtected;
+        this.setWetlandNameOfTheZone(wetlandNameOfTheZone);
+        wetlandSpecies = new Specie[numberOfSpecies];
     }
     
     // Accesors and Mutators
 
     /**
-     * @return String return the wetlandId
+     * @return String return the wetlandNameOfTheZone
      */
-    public String getWetlandId() {
-        return wetlandId;
+    public String getWetlandNameOfTheZone() {
+        return wetlandNameOfTheZone;
     }
 
     /**
-     * @param wetlandId the wetlandId to set
+     * @param wetlandNameOfTheZone the wetlandNameOfTheZone to set
      */
-    public void setWetlandId(String wetlandId) {
-        this.wetlandId = wetlandId;
+    public void setWetlandNameOfTheZone(String wetlandNameOfTheZone) {
+        this.wetlandNameOfTheZone = wetlandNameOfTheZone;
     }
 
     /**
@@ -249,13 +237,12 @@ public class Wetland
     public String toString()
     {
         return  "\n*** Wetland (" + wetlandName + ") ***" +
-                "\nWetland Id: " + wetlandId +
                 "\nWetland Zone: " + wetlandZone +
                 "\nWetland Type; " + wetlandType +
                 "\nWetland km2: " + wetlandKm2 + "km2" +
                 "\nWetland Photo Url: " + wetlandPhotoUrl +
-                "\nWetland Protected: " + wetlandProtected +
-                "\nWetland Species: " + this.getWetlandSpecies().length +
-                "\nWetland Events: " + this.getWetlandEvents().length;
+                "\nWetland Protected: " + wetlandProtected;
+                //"\nWetland Species: " + this.getWetlandSpecies().length;
+                //"\nWetland Events: " + this.getWetlandEvents().length;
     }
 }
