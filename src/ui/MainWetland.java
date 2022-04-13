@@ -57,6 +57,9 @@ public class MainWetland{
 				"(4) To Create a management plan \n" +
 				"(5) Show maintenance of the Wetlands \n" +  
 				"(6) Show wetland with the minimun species of flora \n" +  
+				"(7) Search for species in wetlands \n" +
+				"(8) Show all information of wetlands \n" +
+				"(9) Show wetland with the more species of flora \n" +
 				"(0) To go out"
 				);
 
@@ -87,7 +90,16 @@ public class MainWetland{
 			break;	
 		case 6:
 			showWetlandWithFewerSpecies();
-			break;				
+			break;	
+		case 7:
+			showSpecieWithName();
+			break;	
+		case 8:
+			showAllWetlands();
+			break;
+		case 9:
+			showWetlandWithMostSpecies();
+			break;		
 		default:
 			System.out.println("Error, opción no válida");
 		}
@@ -181,7 +193,8 @@ public class MainWetland{
 		sc.nextLine();
 		String nameToSearch = sc.nextLine();
 
-		String name, scientificName, migratoryType, type;
+		String name, scientificName, migratoryType, type = "";
+		int opType;
 		int opToLeave = 0;
 
 		if (wetland.findWetland(nameToSearch) == true) {
@@ -198,20 +211,44 @@ public class MainWetland{
 				System.out.println("Please enter the if it's a migratory type of the species \n 1.)Yes \n 2.)No ");
 				migratoryType = sc.nextLine();
 
-				System.out.println("Please enter the type of the species \n"+ 
-							"1.) Terrestrial flora\n"+
-							"2.) Aquatic flora\n"+
-							"3.) Bird \n"+
-							"4.) Mammal \n"+
-							"5.) Aquatic \n"
-							);
-				sc.nextLine();
-				type = sc.nextLine();
-			
+				do {
+					System.out.println("Please enter the type of the species \n"+ 
+					"1.) Terrestrial flora\n"+
+					"2.) Aquatic flora\n"+
+					"3.) Bird \n"+
+					"4.) Mammal \n"+
+					"5.) Aquatic \n"
+					);
+					opType = sc.nextInt();
+				} while(
+					opType != 1 && opType != 2 && opType != 3 && opType != 4 && opType != 5
+					);
+				
+				switch (opType) {
+					case 1:
+						type = "Terrestrial flora";
+						break;
+					case 2:
+						type = "Aquatic flora";
+						break;
+					case 3:
+						type = "Bird";
+						break;
+					case 4:
+						type = "Mammal";
+						break;
+					case 5:
+						type = "Aquatic";
+						break;
+				}
+
 				System.out.println(wetland.addSpecieToWetland(nameToSearch, name, scientificName,migratoryType, type));
 				
 				System.out.print("Introduce -1 to leave: ");
 				opToLeave = sc.nextInt();
+
+				sc.nextLine();
+
 			} while(opToLeave != -1);
 
 			// System.out.println(wetland.callToPrintAllSpecie());
@@ -328,6 +365,36 @@ public class MainWetland{
 	public void showWetlandWithFewerSpecies() {
 		System.out.println(
 			"*-- Wetland with fewer species (" + wetland.wetlandWithFewerSpecies() + ") --*\n"
+		);
+	}
+
+	public void showWetlandWithMostSpecies() {
+		System.out.println(
+			"*-- Wetland with most species (" + wetland.wetlandWithMostSpecies() + ") --*\n"
+		);
+	}
+
+	public void showSpecieWithName() {
+		System.out.print("Pleas enter the name of the specie you want search: ");
+		sc.nextLine();
+		String nameSpecieToSearch = sc.nextLine();
+		if (wetland.searchSpecieInWetlands(nameSpecieToSearch).equals("")) {
+			System.out.println(
+				"\n*-- Wetlands that have the specie (" + nameSpecieToSearch + ")" +
+				"\n There is not :C \n"
+			);
+		} else {
+			System.out.println(
+				"*-- Wetlands that have the specie (" + nameSpecieToSearch + ")" +
+				wetland.searchSpecieInWetlands(nameSpecieToSearch) + "\n"
+			);
+		}
+	}
+
+	public void showAllWetlands() {
+		System.out.println(
+			"*-- ALL WETLANDS --* " + 
+			wetland.showAllWetlands() + "\n"
 		);
 	}
 } 

@@ -333,15 +333,55 @@ public class Wetland
         return cont;
     }
 
-    /* public String printAllSpecie() {
+    public boolean findSpecieInWetland(String nts) {
+        boolean found = false;
+		for (int i=0; i < MAX_SPECIES && !found; i++){
+			if (wetlandSpecies[i] != null) {
+                if(wetlandSpecies[i].getSpecieName().equals(nts)){
+                    found = true;
+                }
+            }
+		}
+		return found;
+    }
+
+    public String contSpecieType() {
         String out = "";
-        for (int i = 0; i < wetlandSpecies.length; i++) {
+        String getType = "";
+        int contTF = 0;
+        int contAF = 0;
+        int contB = 0;
+        int contM = 0;
+        int contA = 0;
+        for (int i = 0; i < MAX_SPECIES; i++) {
             if (wetlandSpecies[i] != null) {
-                out += wetlandSpecies[i].toString();
+                getType = wetlandSpecies[i].getSpecieType(); 
+                switch (getType) {
+                    case "Terrestrial flora":
+                        contTF += 1;
+                        break;
+                    case "Aquatic flora":
+                        contAF += 1;
+                        break;
+                    case "Bird":
+                        contB += 1;
+                        break;
+                    case "Mammal":
+                        contM += 1;
+                        break;
+                    case "Aquatic":
+                        contA += 1;
+                        break;
+                }
             }
         }
+        out = "\n Type Terrestrial Flora: " + contTF +
+                "\n Type Aquatic Flora: " + contAF +
+                "\n Type Bird: " + contB +
+                "\n Type Mammal: " + contM +
+                "\n Type Aquatic: " + contA;
         return out;
-    } */
+    }
     
     // toString()
     /** 
@@ -354,8 +394,9 @@ public class Wetland
                 "\nWetland Type; " + wetlandType +
                 "\nWetland km2: " + wetlandKm2 + "km2" +
                 "\nWetland Photo Url: " + wetlandPhotoUrl +
-                "\nWetland Protected: " + wetlandProtected;
-                //"\nWetland Species: " + this.getWetlandSpecies().length;
+                "\nWetland Protected: " + wetlandProtected +
+                "\nWetland Species: " + getWetlandSpeciesExisting() +
+                "\n" + contSpecieType();
                 //"\nWetland Events: " + this.getWetlandEvents().length;
     }
 }

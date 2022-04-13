@@ -189,9 +189,39 @@ public class Municipe {
         return out;
     }
 
-    /* public String callToPrintAllSpecie() {
-        String out = wetlands[0].printAllSpecie();
+    public String wetlandWithMostSpecies() {
+        String out = "There is not :C";
+        int minSpecies = 0;
+        for (int i=0; i < MAX_WETLANDS; i++) {
+            if (wetlands[i] != null) {
+                if(wetlands[i].getWetlandSpeciesExisting() > minSpecies) {
+                    out = wetlands[i].getWetlandName();
+                } 
+            }
+        }
         return out;
-    } */
+    }
+
+    public String searchSpecieInWetlands(String nts) {
+        String out = "";
+        for (int i=0; i < MAX_WETLANDS; i++) {
+            if (wetlands[i] != null) {
+                if (wetlands[i].findSpecieInWetland(nts)) {
+                    out += "\nWetland Name: " + wetlands[i].getWetlandName();
+                }
+            }
+        }
+        return out;
+    }
+
+    public String showAllWetlands() {
+        String out = "";
+        for (int i=0; i < MAX_WETLANDS; i++) {
+            if (wetlands[i] != null) {
+                out += "\n" + wetlands[i].toString();
+            }
+        }
+        return out;
+    }
 
 }
