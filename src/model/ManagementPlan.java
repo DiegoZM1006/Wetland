@@ -5,23 +5,23 @@ package model;
  * Contains Management Plan information
  * @author Diego F. Zuñiga
  */
-public class ManagementPlan extends Event
+public class ManagementPlan
 {
     // Attributes
     /**
 	 * The management plan porcentage
 	 */
-    private double managementPlanPorcentage;
+    private double porcentage;
+    /**
+     * The type of the plan
+     */
+    private String typePlan;
+    /**
+     * The date of the management plan
+     */
+    private Date theDate;
 
     // Constructors
-    /**
-     * This constructor contains default values.
-     */
-    public ManagementPlan()
-    {
-        super();
-        this.managementPlanPorcentage = 0;
-    }
     /**
      * This constructor assigns the values entered by the user.
      * @param eventOrganizer this parameter defines the organizer of the management plan
@@ -31,28 +31,42 @@ public class ManagementPlan extends Event
      * @param managementPlanPorcentage this parameter defines the porcentage of the management plan
      */
     public ManagementPlan(
-        String eventOrganizer, double eventCost, 
-        String eventDescription, Date eventDate, Double managementPlanPorcentage
+        String typePlan, double porcentage, Date theDate
     )
     {
-        super(eventOrganizer, eventCost, eventDescription, eventDate);
-        this.managementPlanPorcentage = managementPlanPorcentage;
+        this.typePlan = typePlan;
+        this.theDate = theDate;
+        this.porcentage = porcentage;
     }
 
     // Accessors and Mutators
 
     /**
-     * @return double return the managementPlanPorcentage
+     * @return double return the porcentage
      */
-    public double getManagementPlanPorcentage() {
-        return managementPlanPorcentage;
+    public double getPorcentage() {
+        return porcentage;
     }
 
     /**
-     * @param managementPlanPorcentage the managementPlanPorcentage to set
+     * @param porcentage the porcentage to set
      */
-    public void setManagementPlanPorcentage(double managementPlanPorcentage) {
-        this.managementPlanPorcentage = managementPlanPorcentage;
+    public void setPorcentage(double porcentage) {
+        this.porcentage = porcentage;
+    }
+
+    /**
+     * @return String return the typePlan
+     */
+    public String getTypePlan() {
+        return typePlan;
+    }
+
+    /**
+     * @param typePlan the typePlan to set
+     */
+    public void setTypePlan(String typePlan) {
+        this.typePlan = typePlan;
     }
 
     // toString()
@@ -61,11 +75,10 @@ public class ManagementPlan extends Event
      */
     public String toString() 
     {
-        return  "\n*** Event ***" +
-                "\nEvent Organizer: " + this.getEventOrganizer() +
-                "\nEvent Cost: " + this.getEventCost() +
-                "\nEvent Description: " + this.getEventDescription() +
-                "\nEvent Date: " + this.getEventDate() +
-                "\nManagement Plan Porcentage: " + managementPlanPorcentage;
+        return  "\n*** Management Plan ***" +
+                "\nType plan: " + typePlan +
+                "\nManagement Plan Porcentage: " + porcentage +
+                "\nDate: " + theDate.toString();
     }
+
 }

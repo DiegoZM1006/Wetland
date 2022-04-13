@@ -9,10 +9,6 @@ public class Specie
 {
     // Attributes
     /**
-	 * The specie ID
-	 */
-    private String specieId;
-    /**
 	 * The specie Name
 	 */
     private String specieName;
@@ -23,7 +19,7 @@ public class Specie
     /**
 	 * The specie Migratory
 	 */
-    private boolean specieMigratory;
+    private String specieMigratory;
     /**
 	 * The specie Type
 	 */
@@ -31,30 +27,17 @@ public class Specie
 
     // Constructors
     /**
-     * This constructor contains default values.
-     */
-    public Specie()
-    {
-        this.specieId = "Unspecified";
-        this.specieName = "Unspecified";
-        this.specieScientificName = "Unspecified";
-        this.specieMigratory = false;
-        this.specieType = "Unspecified";
-    }
-    /**
      * This constructor assigns the values entered by the user.
-     * @param specieId this parameter defines the id of the specie
      * @param specieName this parameter defines the name of the specie
      * @param specieScientificName this parameter defines the scientific name of the specie
      * @param specieMigratory this parameter defines the specie is migratory or no
      * @param specieType this parameter defines the type of the specie
      */
     public Specie(
-        String specieId, String specieName, String specieScientificName, 
-        boolean specieMigratory, String specieType
+        String specieName, String specieScientificName, 
+        String specieMigratory, String specieType
         )
     {
-        this.specieId = specieId;
         this.specieName = specieName;
         this.specieScientificName = specieScientificName;
         this.specieMigratory = specieMigratory;
@@ -62,20 +45,6 @@ public class Specie
     }
 
     // Accessors and Mutators
-    
-    /**
-     * @return String return the specieId
-     */
-    public String getSpecieId() {
-        return specieId;
-    }
-
-    /**
-     * @param specieId the specieId to set
-     */
-    public void setSpecieId(String specieId) {
-        this.specieId = specieId;
-    }
 
     /**
      * @return String return the specieName
@@ -108,14 +77,14 @@ public class Specie
     /**
      * @return boolean return the specieMigratory
      */
-    public boolean isSpecieMigratory() {
+    public String isSpecieMigratory() {
         return specieMigratory;
     }
 
     /**
      * @param specieMigratory the specieMigratory to set
      */
-    public void setSpecieMigratory(boolean specieMigratory) {
+    public void setSpecieMigratory(String specieMigratory) {
         this.specieMigratory = specieMigratory;
     }
 
@@ -140,7 +109,6 @@ public class Specie
     public String toString()
     {
         return  "\n*** Specie ***" +
-                "\nSpecie Id: " + specieId +
                 "\nSpecie Name: " + specieName +
                 "\nSpecie Scientific Name: " + specieScientificName +
                 "\nSpecie Migratory: " + specieMigratory +

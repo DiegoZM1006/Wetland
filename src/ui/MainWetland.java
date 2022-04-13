@@ -53,9 +53,10 @@ public class MainWetland{
 				"Seleccione una opción para empezar\n" +
 				"(1) To create the wetland\n" +
 				"(2) To create a species in the wetland  \n"+
-				"(3) Wetland Event Log \n"+
-				"(4) Show maintenance of the Wetlands \n" +  
-				"(5) Show wetland with the minimun species of flora \n" +  
+				"(3) To create a event \n"+
+				"(4) To Create a management plan \n" +
+				"(5) Show maintenance of the Wetlands \n" +  
+				"(6) Show wetland with the minimun species of flora \n" +  
 				"(0) To go out"
 				);
 
@@ -76,19 +77,16 @@ public class MainWetland{
 			createSpecies();
 			break;
 		case 3:
-			//wetlandEvent();
+			wetlandEvent();
 			break;
-
 		case 4:
-			//	showFigures();
+			wetlandManagementPlan();
 			break;
-
 		case 5:
-			//	showFigures();
+			showMaintenance();
 			break;	
-
 		case 6:
-			//	showFigures();
+			showWetlandWithFewerSpecies();
 			break;				
 		default:
 			System.out.println("Error, opción no válida");
@@ -112,7 +110,7 @@ public class MainWetland{
 			name = sc.nextLine();
 			
 			do {
-				System.out.println("Please enter the location of the wetland \n 1.)Urban \n 2.)Rural");
+				System.out.println("Please enter the location of the wetland \n 1.) Urban \n 2.) Rural");
 				opLocationZone= sc.nextInt();
 			} while(opLocationZone != 1 && opLocationZone != 2);
 
@@ -126,7 +124,7 @@ public class MainWetland{
 			}
 
 			do {
-				System.out.println("Please enter the type of the wetland \n 1) Public \n 2.)Private");
+				System.out.println("Please enter the type of the wetland \n 1.) Public \n 2.) Private");
 				opType= sc.nextInt();
 			} while(opType != 1 && opType != 2);
 
@@ -147,7 +145,7 @@ public class MainWetland{
 			urlPicture= sc.nextLine();
 
 			do {
-				System.out.println("Define the type of protection as a boolean \n 1.Protected \n 2.)Not Protected");
+				System.out.println("Define the type of protection as a boolean \n 1.) Protected \n 2.) Not Protected");
 				opProtection = sc.nextInt();
 			} while(opProtection != 1 && opProtection != 2);
 
@@ -160,15 +158,18 @@ public class MainWetland{
 					break;
 			}
 			
-			System.out.println("Please enter the name of the zone");
-			sc.nextLine();
-			nameOfTheZone= sc.nextLine();
-
-			System.out.println("Please enter the number of species in this wetland");
-			int numberOfSpecies = sc.nextInt();
+			if(opLocationZone==1){
+				System.out.println("Please enter the name of the neighborhood");
+				sc.nextLine();
+				nameOfTheZone= sc.nextLine();
+			} else {
+				System.out.println("Please enter the name of the small towm ");
+				sc.nextLine();
+				nameOfTheZone= sc.nextLine();
+			}
 
 			// Se crea el Wetland
-			System.out.println(wetland.addWetland(name, locationZone, type, size, urlPicture, protection, nameOfTheZone, numberOfSpecies));
+			System.out.println(wetland.addWetland(name, locationZone, type, size, urlPicture, protection, nameOfTheZone));
 		} else {
 			System.out.println("You can't create another wetland, the array it's full");
 		}
@@ -180,56 +181,153 @@ public class MainWetland{
 		sc.nextLine();
 		String nameToSearch = sc.nextLine();
 
+		String name, scientificName, migratoryType, type;
+		int opToLeave = 0;
+
 		if (wetland.findWetland(nameToSearch) == true) {
 
-			System.out.println("Creating the species");
+			do {
+				System.out.println("Creating the species");
 
-			String name, scientificName, migratoryType ,type;
-
-			System.out.println("Please enter the name of the species");
-			sc.nextLine();
-			name= sc.nextLine();
+				System.out.println("Please enter the name of the species");
+				name= sc.nextLine();
 		
-			System.out.println("Please enter the scientific name of the species");
-			sc.nextLine();
-			scientificName= sc.nextLine();
+				System.out.println("Please enter the scientific name of the species");
+				scientificName= sc.nextLine();
 		
-			System.out.println("Please enter the if it's a migratory type of the species \n 1.)Yes \n 2.)No ");
-			sc.nextLine();
-			migratoryType= sc.nextLine();
+				System.out.println("Please enter the if it's a migratory type of the species \n 1.)Yes \n 2.)No ");
+				migratoryType = sc.nextLine();
 
-			System.out.println("Please enter the type of the species"+ 
-							"1.) Terrestrial flora"+
-							"2.) Aquatic flora"+
-							"3.) Bird "+
-							"4.) Mammal"+
-							"5.) Aquatic"
+				System.out.println("Please enter the type of the species \n"+ 
+							"1.) Terrestrial flora\n"+
+							"2.) Aquatic flora\n"+
+							"3.) Bird \n"+
+							"4.) Mammal \n"+
+							"5.) Aquatic \n"
 							);
-			type= sc.nextLine();
+				sc.nextLine();
+				type = sc.nextLine();
+			
+				System.out.println(wetland.addSpecieToWetland(nameToSearch, name, scientificName,migratoryType, type));
+				
+				System.out.print("Introduce -1 to leave: ");
+				opToLeave = sc.nextInt();
+			} while(opToLeave != -1);
 
-			// System.out.println(wetland.addSpecieWetland(wetlandName, name, scientificName,migratoryType, type));
+			// System.out.println(wetland.callToPrintAllSpecie());
 
 		} else {
 			System.out.println("The wetland does not exists");
 		}
 	}
 	
-	/* public void wetlandEvent() {
-		System.out.println("Creating the Event");
+	public void wetlandEvent() {
+
+		System.out.print("Please enter the name of the Wetland you are going to add the events: ");
+		sc.nextLine();
+		String nameToSearch = sc.nextLine();
 
 		String manager,description;
 		double cost;
-		System.out.println("Please choice the option of the event you want to register \1.) ");
+		int opToLeave = 0, day, month, year;
 
+		if (wetland.findWetland(nameToSearch) == true) {
 
-		System.out.println("Please enter the name of the manager of the event");
-		manager= sc.nextLine();
-		System.out.println("Please enter the price of the event");
-		cost= sc.nextDouble();		
-		System.out.println("Please enter the name of the description of the event");
-		description= sc.nextLine();
+			do {
+				System.out.println("Creating the Event");
+	
+				System.out.println("Please enter the name of the manager of the event");
+				manager= sc.nextLine();
+				System.out.println("Please enter the price of the event");
+				cost= sc.nextDouble();		
+				System.out.println("Please enter the name of the description of the event");
+				sc.nextLine();
+				description= sc.nextLine();
+				System.out.println("Please enter the day of the event");
+				day = sc.nextInt();
+				System.out.println("Please enter the month of the event");
+				month = sc.nextInt();
+				System.out.println("Please enter the year of the event");
+				year = sc.nextInt();
+		
+				System.out.println(wetland.addEventToEvent(nameToSearch,manager, description, cost, day, month, year));
+	
+				System.out.print("Introduce -1 to leave: ");
+				opToLeave = sc.nextInt();
+			} while (opToLeave != -1);
 
-	//	Wetland.addWetland(name, locationZone,type, size, urlPicture, nameOfTheZone);
+		} else {
+			System.out.println("The wetland does not exists");
+		}
 	}
-	*/
+
+	public void wetlandManagementPlan() {
+
+		System.out.print("Please enter the name of the Wetland you are going to add the events: ");
+		sc.nextLine();
+		String nameToSearch = sc.nextLine();
+
+		String typePlan = "";
+		double porcentage;
+		int opToLeave = 0, opType, day, month, year;
+
+		if (wetland.findWetland(nameToSearch) == true) {
+
+			do {
+				System.out.println("Creating the Management Plan");
+	
+				do {
+					System.out.println(
+					"Please enter the type of the Management Plan \n" +
+					"(1) Restoration \n" +
+					"(2) Maintenance \n" +
+					"(3) Conservation \n"
+				);
+				opType = sc.nextInt();
+				} while (opType != 1 && opType != 2 && opType != 3);
+
+				switch (opType) {
+					case 1:
+						typePlan = "Restoration";
+						break;
+					case 2:
+						typePlan = "Maintenance";
+						break;
+					case 3:
+						typePlan = "Conservation";
+						break;
+				}
+
+				System.out.print("Please enter the porcentage of the management plan: ");
+				porcentage = sc.nextDouble();
+
+				System.out.println("Please enter the day of the event");
+				day = sc.nextInt();
+				System.out.println("Please enter the month of the event");
+				month = sc.nextInt();
+				System.out.println("Please enter the year of the event");
+				year = sc.nextInt();	
+		
+				System.out.println(wetland.addManagementPlanToWetland(nameToSearch,typePlan, porcentage, day, month, year));
+	
+				System.out.print("Introduce -1 to leave: ");
+				opToLeave = sc.nextInt();
+			} while (opToLeave != -1);
+
+		} else {
+			System.out.println("The wetland does not exists");
+		}
+	}
+
+	public void showMaintenance() {
+		System.out.println(
+			"*-- Management Plans of Wetlands --*" + wetland.showMaintenanceInWetland() + "\n\n"
+		);
+	}
+
+	public void showWetlandWithFewerSpecies() {
+		System.out.println(
+			"*-- Wetland with fewer species (" + wetland.wetlandWithFewerSpecies() + ") --*\n"
+		);
+	}
 } 

@@ -7,6 +7,9 @@ package model;
  */
 public class Wetland
 {
+    private static final int MAX_SPECIES = 100;
+    private static final int MAX_EVENTS = 100;
+    private static final int MAX_MANAGEMENTPLANS = 100;
     // Attributes
     /**
 	 * The wetland Name
@@ -49,7 +52,7 @@ public class Wetland
     /**
 	 * Management of the wetland environmental plan
 	 */
-	private ManagementPlan managementPlan;
+	private ManagementPlan[] managementPlan;
 
     // Constructors
     /**
@@ -65,7 +68,7 @@ public class Wetland
     public Wetland(
         String wetlandName, String wetlandZone, String wetlandType,
         double wetlandKm2, String wetlandPhotoUrl, boolean wetlandProtected,
-        String wetlandNameOfTheZone, int numberOfSpecies
+        String wetlandNameOfTheZone
     )
     {
         this.wetlandName = wetlandName;
@@ -75,7 +78,9 @@ public class Wetland
         this.wetlandPhotoUrl = wetlandPhotoUrl;
         this.wetlandProtected = wetlandProtected;
         this.setWetlandNameOfTheZone(wetlandNameOfTheZone);
-        wetlandSpecies = new Specie[numberOfSpecies];
+        wetlandSpecies = new Specie[MAX_SPECIES];
+        wetlandEvents = new Event[MAX_EVENTS];
+        managementPlan = new ManagementPlan[MAX_MANAGEMENTPLANS];
     }
     
     // Accesors and Mutators
@@ -209,14 +214,18 @@ public class Wetland
     /**
      * @return ManagementPlan return the managementPlan
      */
-    public ManagementPlan getManagementPlan() {
-        return managementPlan;
+    public String getManagementPlan() {
+        String out = "";
+        for (int i = 0; i < managementPlan.length && managementPlan[i] != null; i++) {
+            out += managementPlan[i].toString();
+        }
+        return out;
     }
 
     /**
      * @param managementPlan the managementPlan to set
      */
-    public void setManagementPlan(ManagementPlan managementPlan) {
+    public void setManagementPlan(ManagementPlan[] managementPlan) {
         this.managementPlan = managementPlan;
     }
 
@@ -229,6 +238,110 @@ public class Wetland
     {
         wetlandSpecies = new Specie[contEvents];
     } 
+
+    public int getEmptyPositionSpecies(){
+        boolean emptyPosition = false;
+		int position = -1;
+		for (int i=0; i< wetlandSpecies.length && !emptyPosition; i++){
+			if(wetlandSpecies[i] == null){
+				emptyPosition = true;
+				position = i;
+			}
+		}
+		return position;
+    }
+
+    public String addSpecie(String name, String scientificName, String migratoryType, String type) {
+		String out = "";		
+		int emptyPos = getEmptyPositionSpecies(); //busco la primera posición vacía
+		// si el arreglo está lleno?
+		out = "Entra al metodo";
+		if(emptyPos == -1){ // está lleno
+			//no se puede agregar
+			out = "El arreglo está lleno";
+		}else{ //Si no está lleno
+
+			wetlandSpecies[emptyPos] = new Specie(name, scientificName, migratoryType, type); 
+			out = "El registro fue exitoso";
+		}
+		return out;
+	}
+
+    public int getEmptyPositionEvent(){
+        boolean emptyPosition = false;
+		int position = -1;
+		for (int i=0; i< wetlandEvents.length && !emptyPosition; i++){
+			if(wetlandEvents[i] == null){
+				emptyPosition = true;
+				position = i;
+			}
+		}
+		return position;
+    }
+
+    public String addEvent(String manager, String description, double cost, Date theDate) {
+		String out = "";		
+		int emptyPos = getEmptyPositionEvent(); //busco la primera posición vacía
+		// si el arreglo está lleno?
+		out = "Entra al metodo";
+		if(emptyPos == -1){ // está lleno
+			//no se puede agregar
+			out = "El arreglo está lleno";
+		}else{ //Si no está lleno
+
+			wetlandEvents[emptyPos] = new Event(manager, description, cost, theDate); 
+			out = "El registro fue exitoso";
+		}
+		return out;
+	}
+
+    public int getEmptyPositionManagementPlan(){
+        boolean emptyPosition = false;
+		int position = -1;
+		for (int i=0; i< managementPlan.length && !emptyPosition; i++){
+			if(managementPlan[i] == null){
+				emptyPosition = true;
+				position = i;
+			}
+		}
+		return position;
+    }
+
+    public String addManagementPlan(String typePlan, double porcentage, Date theDate) {
+		String out = "";		
+		int emptyPos = getEmptyPositionManagementPlan(); //busco la primera posición vacía
+		// si el arreglo está lleno?
+		out = "Entra al metodo";
+		if(emptyPos == -1){ // está lleno
+			//no se puede agregar
+			out = "El arreglo está lleno";
+		}else{ //Si no está lleno
+
+			managementPlan[emptyPos] = new ManagementPlan(typePlan, porcentage, theDate); 
+			out = "El registro fue exitoso";
+		}
+		return out;
+	}
+
+    public int getWetlandSpeciesExisting() {
+        int cont = 0;
+        for (int i = 0; i < MAX_SPECIES; i++) {
+            if (wetlandSpecies[i] != null) {
+                cont += 1;
+            }
+        }
+        return cont;
+    }
+
+    /* public String printAllSpecie() {
+        String out = "";
+        for (int i = 0; i < wetlandSpecies.length; i++) {
+            if (wetlandSpecies[i] != null) {
+                out += wetlandSpecies[i].toString();
+            }
+        }
+        return out;
+    } */
     
     // toString()
     /** 

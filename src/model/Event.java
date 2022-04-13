@@ -26,16 +26,6 @@ public class Event
 
     // Constructors
     /**
-     * This constructor contains default values.
-     */
-    public Event()
-    {
-        this.eventOrganizer = "Unspecified";
-        this.eventCost = 0;
-        this.eventDescription = "The event has no description";
-        this.eventDate = new Date();
-    }
-    /**
      * This constructor assigns the values entered by the user.
      * @param eventOrganizer this parameter defines the organizer of the event
      * @param eventCost this parameter defines the id cost the event
@@ -44,8 +34,8 @@ public class Event
      */
     public Event(
         String eventOrganizer, 
-        double eventCost, 
         String eventDescription,
+        double eventCost, 
         Date eventDate
     )
     {
