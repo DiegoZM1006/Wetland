@@ -64,7 +64,6 @@ public class Wetland
      * @param wetlandPhotoUrl this parameter defines the photo url of the wetland
      * @param wetlandProtected this parameter defines if the wetland is protected or no
      */
-    // name, locationZone, type, size, urlPicture, protection, nameOfTheZone
     public Wetland(
         String wetlandName, String wetlandZone, String wetlandType,
         double wetlandKm2, String wetlandPhotoUrl, boolean wetlandProtected,
@@ -228,17 +227,25 @@ public class Wetland
     public void setManagementPlan(ManagementPlan[] managementPlan) {
         this.managementPlan = managementPlan;
     }
-
+    /**
+     * @param contAnimals the setContAnimals to set
+     */
     public void setContAnimals(int contAnimals)
     {
         wetlandSpecies = new Specie[contAnimals];
     }
-
+    /**
+     * @param contEvents the setContEvents to set
+     */
     public void setContEvents(int contEvents)
     {
         wetlandSpecies = new Specie[contEvents];
     } 
-
+    /**
+     * This method is used to find the index of the empty position in wetlandSpecies[].
+     * @return int, returns the number (index) where find an empty position in wetlandSpecies[], 
+     * otherwise, it will return -1 if no space is found
+     */
     public int getEmptyPositionSpecies(){
         boolean emptyPosition = false;
 		int position = -1;
@@ -250,23 +257,31 @@ public class Wetland
 		}
 		return position;
     }
-
+    /**
+     * This method is used to add a specie to wetlandSpecies[]
+     * @param name, is the name of the specie
+     * @param scientificName, is the scientific name of the specie
+     * @param migratoryType, means if the specie is migratory or not
+     * @param type, is the type of the specie
+     * @return String, returns a message depending on whether the specie was added or not
+     */
     public String addSpecie(String name, String scientificName, String migratoryType, String type) {
 		String out = "";		
-		int emptyPos = getEmptyPositionSpecies(); //busco la primera posición vacía
-		// si el arreglo está lleno?
+		int emptyPos = getEmptyPositionSpecies();
 		out = "Entra al metodo";
-		if(emptyPos == -1){ // está lleno
-			//no se puede agregar
+		if(emptyPos == -1){ 
 			out = "El arreglo está lleno";
 		}else{ //Si no está lleno
-
 			wetlandSpecies[emptyPos] = new Specie(name, scientificName, migratoryType, type); 
 			out = "El registro fue exitoso";
 		}
 		return out;
 	}
-
+    /**
+     * This method is used to find the index of the empty position in wetlandEvents[].
+     * @return int, returns the number (index) where find an empty position in wetlandEvents[], 
+     * otherwise, it will return -1 if no space is found
+     */
     public int getEmptyPositionEvent(){
         boolean emptyPosition = false;
 		int position = -1;
@@ -278,23 +293,31 @@ public class Wetland
 		}
 		return position;
     }
-
+    /**
+     * This method is used to add a event to wetlandEvents[]
+     * @param manager, it is the name of the manager who organizes the event
+     * @param description, is the description of the event
+     * @param cost, is the cost of the event
+     * @param theDate, is the date of the event
+     * @return String, returns a message depending on whether the event was added or not
+     */
     public String addEvent(String manager, String description, double cost, Date theDate) {
 		String out = "";		
-		int emptyPos = getEmptyPositionEvent(); //busco la primera posición vacía
-		// si el arreglo está lleno?
+		int emptyPos = getEmptyPositionEvent();
 		out = "Entra al metodo";
-		if(emptyPos == -1){ // está lleno
-			//no se puede agregar
+		if(emptyPos == -1){ 
 			out = "El arreglo está lleno";
-		}else{ //Si no está lleno
-
+		}else{ 
 			wetlandEvents[emptyPos] = new Event(manager, description, cost, theDate); 
 			out = "El registro fue exitoso";
 		}
 		return out;
 	}
-
+    /**
+     * This method is used to find the index of the empty position in managementPlan[].
+     * @return int, returns the number (index) where find an empty position in managementPlan[], 
+     * otherwise, it will return -1 if no space is found
+     */
     public int getEmptyPositionManagementPlan(){
         boolean emptyPosition = false;
 		int position = -1;
@@ -306,7 +329,13 @@ public class Wetland
 		}
 		return position;
     }
-
+    /**
+     * This method is used to add a event to managementPlan[]
+     * @param typePlan, is the type of management plan
+     * @param porcentage, is the porcentage of the management plan
+     * @param theDate, is the date of the event 
+     * @return
+     */
     public String addManagementPlan(String typePlan, double porcentage, Date theDate) {
 		String out = "";		
 		int emptyPos = getEmptyPositionManagementPlan(); //busco la primera posición vacía
@@ -322,7 +351,10 @@ public class Wetland
 		}
 		return out;
 	}
-
+    /**
+     * This method is to know how many species there are in a wetland
+     * @return int, is the number of the species in a specific wetland
+     */
     public int getWetlandSpeciesExisting() {
         int cont = 0;
         for (int i = 0; i < MAX_SPECIES; i++) {
@@ -332,7 +364,12 @@ public class Wetland
         }
         return cont;
     }
-
+    /**
+     * This method is used to find out if there is a species in a wetland
+     * @param nts, name of the specie to search
+     * @return boolean, returns true if the species is in the wetland 
+     * otherwise returns false 
+     */
     public boolean findSpecieInWetland(String nts) {
         boolean found = false;
 		for (int i=0; i < MAX_SPECIES && !found; i++){
@@ -344,7 +381,10 @@ public class Wetland
 		}
 		return found;
     }
-
+    /**
+     * This method is used to see the species in a wetland separated by type of species
+     * @return String, Returns a message with the information of the wetland species
+     */
     public String contSpecieType() {
         String out = "";
         String getType = "";

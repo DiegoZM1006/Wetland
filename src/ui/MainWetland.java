@@ -5,35 +5,44 @@ import model.Municipe;
 public class MainWetland{
 
 	/**
-	 * wetland es la conexion con la clase Municipe en el paquete model
+	 * wetland is the connection to the Municipality class in the model package
 	 */
 	private Municipe wetland;
 	/**
-	 * sc es el objeto que permite leer informaciOn digitada por el usuario
+	 * sc is the object that allows reading information typed by the user
 	 */
 	public Scanner sc;
 	/**
-	 * Constructor de la clase, no recibe prametros.  
-	 * El mEtodo inicializa el objeto lector 
+	 * option is the variable to store user decisions
 	 */
-
-	//private Wetland newWetland;
 	public static int option;
-
+	/**
+	 * Constructor of the Main Westland class, takes no parameters. 
+	 * The method initializes the reader object
+	 */
     public MainWetland(){
         sc = new Scanner(System.in);
     }	
-
+	/**
+	 * This method initialized the connection with the controller class
+	 */
 	public void setNameMunicipe() {
-		System.out.print("Digite el nombre del municipio: ");
+		System.out.print("\n!!! Enter the name of the municipality: ");
 		String nameMunicipe = sc.nextLine();
 
 		wetland = new Municipe(nameMunicipe);
 	}
-
+	/**
+	 * Main method where the program will be executed in general
+	 */
 	public static void main(String [] args) {
 		
-		System.out.println("Iniciando la aplicación");
+		System.out.println(
+			"\n" +
+			"*------------------------*\n" +
+			"|STARTING THE APPLICATION|\n" +
+			"*------------------------*"
+			);
 		
         int option = 0;
         MainWetland myMain = new MainWetland();
@@ -46,11 +55,15 @@ public class MainWetland{
 		}while (option!=0);
 		
 	}	
+	/**
+	 * This class displays the program's menu.
+	 * @return option, int which is the value of the option that the user chose
+	 */
 	public int showMenu() {
 		int option=0;
 
-		System.out.println(
-				"Seleccione una opción para empezar\n" +
+		System.out.print(
+				"\nSelect an option to get started\n\n" +
 				"(1) To create the wetland\n" +
 				"(2) To create a species in the wetland  \n"+
 				"(3) To create a event \n"+
@@ -60,13 +73,17 @@ public class MainWetland{
 				"(7) Search for species in wetlands \n" +
 				"(8) Show all information of wetlands \n" +
 				"(9) Show wetland with the more species of flora \n" +
-				"(0) To go out"
+				"(0) To go out \n\n" +
+				"--> "
 				);
 
 		option= sc.nextInt();
 		return option;
 	}
-	
+	/**
+	 * This method is used to execute the method/Option that the user chose.
+	 * @param operation, has to be initialized,int containing the value entered by the user  
+	 */
 	public void executeOperation(int operation) {
 		
 		switch(operation) {
@@ -104,7 +121,9 @@ public class MainWetland{
 			System.out.println("Error, opción no válida");
 		}
 	}
-
+	/**
+	 * This method create a new wetland
+	 */
 	public void createWetland() {
 		
 		if(wetland.hasSpace() == true){
@@ -186,7 +205,9 @@ public class MainWetland{
 			System.out.println("You can't create another wetland, the array it's full");
 		}
 	}
-
+	/**
+	 * This method create a new specie in a specific wetland
+	 */
 	public void createSpecies() {
 
 		System.out.print("Please enter the name of the Wetland you are going to add the species: ");
@@ -257,7 +278,9 @@ public class MainWetland{
 			System.out.println("The wetland does not exists");
 		}
 	}
-	
+	/**
+	 * This method create a new event in a specific wetland
+	 */
 	public void wetlandEvent() {
 
 		System.out.print("Please enter the name of the Wetland you are going to add the events: ");
@@ -297,7 +320,9 @@ public class MainWetland{
 			System.out.println("The wetland does not exists");
 		}
 	}
-
+	/**
+	 * This method create a new management plan in a specific wetland
+	 */
 	public void wetlandManagementPlan() {
 
 		System.out.print("Please enter the name of the Wetland you are going to add the events: ");
@@ -355,25 +380,33 @@ public class MainWetland{
 			System.out.println("The wetland does not exists");
 		}
 	}
-
+	/**
+	 * This method shows the environmental management plans of all wetlands
+	 */
 	public void showMaintenance() {
 		System.out.println(
 			"*-- Management Plans of Wetlands --*" + wetland.showMaintenanceInWetland() + "\n\n"
 		);
 	}
-
+	/**
+	 * This method show the name of the wetland with less species
+	 */
 	public void showWetlandWithFewerSpecies() {
 		System.out.println(
 			"*-- Wetland with fewer species (" + wetland.wetlandWithFewerSpecies() + ") --*\n"
 		);
 	}
-
+	/**
+	 * This method show the name of the wetland with most species
+	 */
 	public void showWetlandWithMostSpecies() {
 		System.out.println(
 			"*-- Wetland with most species (" + wetland.wetlandWithMostSpecies() + ") --*\n"
 		);
 	}
-
+	/**
+	 * This method shows the name of the wetlands with the name of a specific species.
+	 */
 	public void showSpecieWithName() {
 		System.out.print("Pleas enter the name of the specie you want search: ");
 		sc.nextLine();
@@ -390,7 +423,9 @@ public class MainWetland{
 			);
 		}
 	}
-
+	/**
+	 * This method shows all the information of all the wetlands
+	 */
 	public void showAllWetlands() {
 		System.out.println(
 			"*-- ALL WETLANDS --* " + 
